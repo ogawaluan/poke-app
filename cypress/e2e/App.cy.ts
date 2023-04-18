@@ -76,19 +76,6 @@ describe('App tests e2e', () => {
 	});
 
 	it('Should be able to navigate to Pokemons List, favorite a pokémon, reload the page and when the page finishes loading, I have to be able to see my favorite pokemons.', () => {
-		const mockData = [
-			{
-				id: 1,
-				name: 'bulbasaur',
-				img: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png',
-				hp: 45,
-				attack: 49,
-				defense: 49,
-				type: 'grass',
-				isFavorite: true,
-			},
-		];
-
 		cy.contains('Access my list').click();
 
 		cy.url().should('include', '/list');
@@ -99,8 +86,6 @@ describe('App tests e2e', () => {
 			.trigger('mouseover');
 
 		cy.contains('Favorite').click();
-
-		cy.setLocalStorage('pokeapp::favorites', JSON.stringify(mockData));
 
 		cy.saveLocalStorage();
 
@@ -130,11 +115,12 @@ describe('App tests e2e', () => {
 
 		cy.url().should('eq', 'http://localhost:3000/');
 
-		cy.reload().then(() => {
-			cy.saveLocalStorage();
-		});
+		cy.saveLocalStorage();
+
+		cy.reload();
 
 		cy.restoreLocalStorage();
+
 		cy.contains('Access my list').click();
 
 		cy.get('img:eq(0)')

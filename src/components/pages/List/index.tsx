@@ -71,14 +71,7 @@ const List = () => {
 			dispatch(needPopulateReducer(!needPopulate));
 		}
 
-		const saveFavorites = () => {
-			setFavoritesPokemonsInLocalStorage(favoritePokemons);
-		};
-
-		window.addEventListener('beforeunload', saveFavorites);
-		return () => {
-			window.removeEventListener('beforeunload', saveFavorites);
-		};
+		setFavoritesPokemonsInLocalStorage(favoritePokemons);
 	}, [favoritePokemons]);
 
 	return (

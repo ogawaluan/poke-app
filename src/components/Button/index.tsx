@@ -1,31 +1,13 @@
 import { Button } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { MdArrowForward, MdArrowBack } from 'react-icons/md';
-import { IButtonProps, IPokemonCardData } from '@/types';
-import useLocalStorage from '@/hooks/useLocalStorage';
-import { useAppDispatch, useAppSelector } from '@/store';
-import {
-	needPopulateReducer,
-	populateFavoritesWithStorageReducer,
-} from '@/store/slices/pokemonsSlice';
+import { IButtonProps } from '@/types';
 
 const ButtonComponent = ({ isHome = true, ...rest }: IButtonProps) => {
 	const navigate = useNavigate();
-	const [favorites, _] = useLocalStorage('pokeapp::favorites');
-	const needPopulate = useAppSelector((state) => state.pokemons.needPopulate);
-	const dispatch = useAppDispatch();
 	const whichRoute = isHome ? '/list' : '/';
 
-	const handleButtonClick = () => {
-		if (isHome && needPopulate) {
-			dispatch(
-				populateFavoritesWithStorageReducer(favorites as IPokemonCardData[])
-			);
-			dispatch(needPopulateReducer(!needPopulate));
-		}
-		navigate(whichRoute);
-	};
-
+	const handleButtonClick = () => navigate(whichRoute);
 	return (
 		<Button
 			leftIcon={!isHome ? <MdArrowBack size={29} /> : undefined}

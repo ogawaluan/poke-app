@@ -3,26 +3,8 @@ import { MdCatchingPokemon } from 'react-icons/md';
 import Logo from '@assets/logo.svg';
 import HomeBg from '@assets/home-bg.svg';
 import ButtonComponent from '@/components/Button';
-import { useEffect } from 'react';
-import useLocalStorage from '@/hooks/useLocalStorage';
-import { useAppSelector } from '@/store';
 
 const Home = () => {
-	const [_, setFavoritesPokemonsInLocalStorage] =
-		useLocalStorage('pokeapp::favorites');
-	const favoritePokemons = useAppSelector((state) => state.pokemons.pokemons);
-
-	useEffect(() => {
-		const saveFavorites = () => {
-			setFavoritesPokemonsInLocalStorage(favoritePokemons);
-		};
-
-		window.addEventListener('beforeunload', saveFavorites);
-		return () => {
-			window.removeEventListener('beforeunload', saveFavorites);
-		};
-	}, []);
-
 	return (
 		<Flex w="100vw" h="100vh">
 			<Flex
