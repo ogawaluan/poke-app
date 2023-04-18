@@ -50,6 +50,10 @@ To run unit tests
 
 ### To run e2e tests
 
+You will need to have the web server running to perform E2E tests
+
+    yarn dev
+
 Use this command
 
     yarn cypress
